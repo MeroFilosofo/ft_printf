@@ -6,20 +6,20 @@
 #    By: ivromero <ivromero@student.45urduli>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/04 01:31:44 by ivromero          #+#    #+#              #
-#    Updated: 2023/06/06 18:09:04 by ivromero         ###   ########.fr        #
+#    Updated: 2023/10/17 16:54:53 by ivromero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c 
+SRCS = ft_printf.c ft_printf_utils.c 
 
-SRCBONUS = ft_printf_bonus.c 
+#SRCBONUS = ft_printf_bonus.c 
 
 OBJS = $(SRCS:.c=.o)
 
-OBJSBONUS = $(SRCBONUS:.c=.o)
+#OBJSBONUS = $(SRCBONUS:.c=.o)
 
 CC		= cc
 RM		= rm -f
@@ -35,12 +35,12 @@ $(NAME): $(OBJS)
 		@echo "Compilación terminada: $@"
 		@make info
 
-bonus: .bonus
+#bonus: .bonus
 
-.bonus: $(OBJSBONUS)
-		$(AR) $(NAME) $(OBJSBONUS)
-		@touch .bonus
-		@make info
+#.bonus: $(OBJSBONUS)
+#		$(AR) $(NAME) $(OBJSBONUS)
+#		@touch .bonus
+#		@make info
 
 all:	$(NAME)
 
@@ -52,7 +52,7 @@ fclean:	clean
 
 re:		fclean all
 
-.PHONY : bonus all clean fclean re info
+.PHONY : all clean fclean re info #bonus
 
 info:
 		@echo "⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜"

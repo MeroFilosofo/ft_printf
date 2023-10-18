@@ -3,66 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ivromero <ivromero@student.45urduli>       +#+  +:+       +#+        */
+/*   By: ivromero <ivromero@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:09:31 by ivromero          #+#    #+#             */
-/*   Updated: 2023/06/06 17:57:44 by ivromero         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:07:58 by ivromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static void	ft_putcharcnt(char c, int *count)
-{
-	write(1, &c, 1);
-	*count += 1;
-}
-
-static void	ft_putstrcnt(char *s, int *count)
-{
-	if (s)
-		while (*s)
-			ft_putcharcnt(*s++, count);
-	else
-		ft_putstrcnt("(null)", count);
-}
-
-static void	ft_putnbrcnt(long n, int *count)
-{
-	if (n < 0)
-	{
-		ft_putcharcnt('-', count);
-		n = -n;
-	}
-	if (n >= 10)
-	{
-		ft_putnbrcnt(n / 10, count);
-		ft_putnbrcnt(n % 10, count);
-	}
-	else
-		ft_putcharcnt(n + '0', count);
-}
-
-static void	ft_puthexcnt(unsigned long int n, int ucase, int prefix,
-		int *count)
-{
-	char	*str;
-	char	*str_u;
-
-	str = "0123456789abcdef";
-	str_u = "0123456789ABCDEF";
-	if (prefix)
-		ft_putstrcnt("0x", count);
-	if (n >= 16)
-		ft_puthexcnt(n / 16, ucase, 0, count);
-	if (n >= 16)
-		ft_puthexcnt(n % 16, ucase, 0, count);
-	else if (ucase)
-		ft_putcharcnt(str_u[n], count);
-	else
-		ft_putcharcnt(str[n], count);
-}
-
 
 static void	ft_printconv(char c, va_list args, int *count)
 {
@@ -103,3 +51,39 @@ int	ft_printf(char const *format, ...)
 	va_end(args);
 	return (count);
 }
+
+/*
+#include <limits.h>
+
+int	main(void)
+{
+	ft_printf("\001\002\007\v\010\f\r\n", '1');
+
+	ft_printf("Caracter: %c\n", 'a');
+	ft_printf("Cadena: %s\n", "Hola, mundo");
+
+	int num = 10;
+	ft_printf("Puntero: %p\n", &num);
+	ft_printf("Entero: %d\n", num);
+	ft_printf("Entero: %i\n", num);
+	ft_printf("Entero sin signo: %u\n", 100);
+	ft_printf("Entero en hexadecimal (minúsculas): %x\n", 200);
+	ft_printf("Entero en hexadecimal (mayúsculas): %X\n", 200);
+	ft_printf("Signo de porcentaje: %%\n");
+
+	ft_printf("Entero: %i\n", 0);
+	ft_printf("Entero: %i\n", INT_MIN);
+	ft_printf("Entero: %i\n", INT_MAX);
+
+	ft_printf("Cadena vacia: %s\n", "");
+	ft_printf("Cadena puntero NULL: %s\n", NULL);
+
+	ft_printf("Puntero nulo: %p\n", NULL);
+
+	ft_printf("Varios: %xxx%%__%i %d__%X\n", 101, num, num +1, 100);
+
+	ft_printf("Valor retorno: %d\n", ft_printf("%d\n", 12345678) );
+
+	return (0);
+}
+*/
